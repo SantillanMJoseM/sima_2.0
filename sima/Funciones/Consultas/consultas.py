@@ -86,7 +86,7 @@ def consultarDatConexion(defiid):
             resultado.append(diccionario)
 
         # Consulto segunda tabla 
-        cursor.execute('SELECT * FROM whatsdetdefi where defiid = ' + str(defiid) + ' and detid = (select max(detid) from whatsdetdefi where defiid = 'str(defiid)+')')
+        cursor.execute('SELECT * FROM whatsdetdefi where defiid = ' + str(defiid) + ' and detid = (select max(detid) from whatsdetdefi where defiid = 'str(defiid)+' and estado = 1 )')
 
         # Obtener los nombres de las columnas
         columna_nombre = [columna[0] for columna in cursor.description]
