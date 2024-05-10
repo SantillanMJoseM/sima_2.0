@@ -1,3 +1,5 @@
 from Funciones.Consultas import consultas as con
 
-empresas = con.consultaEmpresas()
+print(con.conexionBdEmpresa(con.consultarDatConexion(1)))
+
+

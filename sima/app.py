@@ -17,31 +17,34 @@ emp = input('Ingrese la empresa correspondiente a trabajar: ')
 
 funciones.limpiar_pantalla()
 
-# Impresion de opciones del menu
-print('''
-Selecciona la opcion correcta para continuar
-      
-(1) - Seleccione para iniciar servicio de archivos FTP
-(2) - Seleccione para iniciar el envio de los mensajes
-(3) - Ver ultimas campañas enviadas
-(4) - Ver mensajes pendientes y tiempo
-''')
+
+menus = con.consultaMenu()
+print('''Listado de menus en el sistema
+      ''')    
+# Impresion de menus encontrados
+for menu in menus: 
+    print('('+str(menu.get("menid"))+') - '+str(menu.get("mendesc")))
 
 # Traigo datos de la tabla para poder generar la coneccion
 datos = con.consultarDatConexion(emp)
 
 # Opciones disponbles en la seleccion del menu
-opcion = input('Ingrese la opcion correspondiente: ')
+opcion = input('Ingrese la opcion de menu correspondiente: ')
 
 # Limpieza de la pantalla 
 funciones.limpiar_pantalla()
 
-# Inicio de acciones segun la eleccion
-if opcion == '1':
-    print(f'ingresaste al modulo {opcion}')
-elif opcion == '2':
-    print(f'ingresaste al modulo {opcion}')
-elif opcion == '3':
-    print(f'ingresaste al modulo {opcion}')
-elif opcion == '4':
-    print(f'ingresaste al modulo {opcion}')
+# Inicio menu en falso
+menid_encontrado = False
+
+# Iterar sobre los diccionarios en la lista
+for menu in menus:
+    if "menid" in menu and str(menu["menid"]) == opcion:
+        menid_encontrado = True
+        break
+
+# Verificar si se encontró el menid
+if menid_encontrado:
+    print("Se encontró el menid en la lista.")
+else:
+    print("No se encontró el menid en la lista.")
