@@ -13,7 +13,7 @@ def verificoPeriodo(fecInicio, fecFin, estado):
     est = 0
 
     # Obtener la fecha actual
-    fecha_actual = datetime.now()
+    fecha_actual = datetime.now().date()
     
     try:    
         if estado > 0: 
