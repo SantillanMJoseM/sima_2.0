@@ -110,3 +110,44 @@ def consultarDatConexion(defiid):
     except:
         print(f'Error en la coneccion a la base de datos {bd}')
     
+def conexionBdEmpresa(datos):
+    '''Se genera el parceo y generacion de la conexion'''
+
+    # Cargar variables de entorno desde el archivo .env
+    load_dotenv()
+    
+    # Levanto las variables ya definidas
+    server = os.getenv("servidor")
+
+    # Obtengo los parametos para generar toda la conexion
+    empresa = str(datos[0].get("defnom"))
+    sql_base = str(datos[0].get("defbd"))
+    sql_user = str(datos[0].get("defbduser"))
+    sql_pass = str(datos[0].get("defdbpass"))
+    emp_estado = str(datos[0].get("estado"))
+
+    # Obtengo los datos de para el periodo en cuestion de la empresa 
+    # y verifico la habilitacion de la misma
+    detid = str(datos[1].get("detid"))        # Id incremental para fila activa en el detalle (por periodo)
+    parm0 = str(datos[1].get("parm0"))        # A definir smallint
+    parm1 = str(datos[1].get("parm1"))        # A definir smallint
+    parm2 = str(datos[1].get("parm2"))        # Cantidad limite de mensajes a enviar
+    parm3 = str(datos[1].get("parm3"))        # Cantidad limite de campañas a enviar
+    parm4 = str(datos[1].get("parm4"))        # Correos a informar
+    parm5 = str(datos[1].get("parm5"))        # Correos a informar CC
+    parm6 = str(datos[1].get("parm6"))        # Fecha inicio de periodo 
+    parm7 = str(datos[1].get("parm7"))        # Fecha fin de periodo
+    parm8 = str(datos[1].get("parm8"))        # A definir
+    parm9 = str(datos[1].get("parm9"))        # A definir
+    parm10 = str(datos[1].get("parm10"))        # Cantidad de mensajes enviados 
+    parm11 = str(datos[1].get("parm11"))        # Cantidad de campañas enviadas
+    periodo = str(datos[1].get("periodo"))        # Periodo en ejecucion
+    estado = str(datos[1].get("estado"))        # Estado del periodo (0 = inactivo, 1 = Activo)
+
+    # Verifico que el periodo este dentro de termino de ejecucion o corto la misma
+    ejecuta = verificoPeriodo(parm6, parm7)
+    
+    #try:
+    
+    #except:
+        #print(f'Se produjo un error al generar la conexion a la base de la empresa a gestionar {empresa}')
