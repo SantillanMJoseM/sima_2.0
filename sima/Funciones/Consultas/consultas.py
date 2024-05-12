@@ -196,11 +196,10 @@ def conexionBdEmpresa(datos):
     periodo = str(datos[1].get("periodo"))                          # Periodo en ejecucion
     estado = str(datos[1].get("estado"))                            # Estado del periodo (0 = inactivo, 1 = Activo)
 
-    # Verifico que el periodo este dentro de termino de ejecucion o corto la misma
-    ejecuta = fu.verificoPeriodo(parm6, parm7, emp_estado)          # Error 1 estado = 0, error 2 fuera de valides de periodo
-
 def consultarConfEmpresa():
     '''Consultar los tipos de mensajes habilitados para la empresa'''
+
+
 
     
 def consultarConfEmpresa():

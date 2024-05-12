@@ -37,6 +37,19 @@ def convertirDateTime(fecha):
 
     return datetime.strptime(fecha, "%Y-%m-%d %H:%M:%S")
 
+def ejecutoMenu(datos, opmenu):
+    '''Ejecucion de opcion del menu seleccionada'''
+
+    # Antes de ejecutar el menu realizara todas las verificaciones correspondientes para la empresa
+    # 1 - Tener un periodo valido y activo para la fecha de ejecucion del mismo 
+    # 2 - Tener un total de campañas disponibles para la ejecucion a realizar 
+    # 3 - Se verificaran los parametros minimos para el funcionamiento del sistema 
+    # 4 - Tener disponibilidad de mensajes pendientes, luego en el proceso del archivo subido al ftp
+
+    # Verifico que el periodo este dentro de termino de ejecucion o corto la misma
+    # ejecuta = fu.verificoPeriodo(parm6, parm7, emp_estado)          # Error 1 estado = 0, error 2 fuera de valides de periodo
+
+
 def mailAviso():
 
 def mailError():

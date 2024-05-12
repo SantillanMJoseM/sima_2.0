@@ -14,9 +14,7 @@ for empresa in empresas:
 emp = input('Ingrese la empresa correspondiente a trabajar: ')
 
 # Limpieza de la pantalla 
-
 funciones.limpiar_pantalla()
-
 
 menus = con.consultaMenu()
 print('''Listado de menus en el sistema
