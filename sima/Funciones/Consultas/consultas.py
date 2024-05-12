@@ -199,8 +199,3 @@ def conexionBdEmpresa(datos):
 def consultarConfEmpresa():
     '''Consultar los tipos de mensajes habilitados para la empresa'''
 
-
-
-    
-def consultarConfEmpresa():
-    '''Consultar los tipos de mensajes habilitados para la empresa'''
