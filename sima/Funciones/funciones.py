@@ -36,3 +36,9 @@ def convertirDateTime(fecha):
     '''Convierte el string recibido en datetime'''
 
     return datetime.strptime(fecha, "%Y-%m-%d %H:%M:%S")
+
+def mailAviso():
+
+def mailError():
+
+def mailConfirmacion():
