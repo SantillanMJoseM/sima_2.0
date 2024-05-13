@@ -51,7 +51,15 @@ def ejecutoMenu(datos, opmenu):
 
 
 def mailAviso():
+    '''Genera los correos electronicos para avisos(periodos invalidos, topes superados)'''
+    print('Test')
 
 def mailError():
+    '''Genera los mail a todos los participantes de 
+    la empresa y sistema, en caso de errores y excepciones'''
+
+    print('Test')
 
 def mailConfirmacion():
+    '''Genera los mail para aviso de procesamiento exitoso'''
+    print('Test')

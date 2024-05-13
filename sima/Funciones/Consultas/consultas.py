@@ -196,6 +196,27 @@ def conexionBdEmpresa(datos):
     periodo = str(datos[1].get("periodo"))                          # Periodo en ejecucion
     estado = str(datos[1].get("estado"))                            # Estado del periodo (0 = inactivo, 1 = Activo)
 
+def veriEmpresa():
+    '''Genera las verificaiones de preridos. campañas, mensajes'''
+
+    # Inicio verificacion de fecha
+    fecinicio = fu.convertirDateTime(str(datos[1].get("parm6")))    # Fecha inicio de periodo 
+    fecfin = fu.convertirDateTime(str(datos[1].get("parm7")))       # Fecha fin de periodo
+    estado = str(datos[1].get("estado"))                            # Estado del periodo (0 = inactivo, 1 = Activo)
+
+    valido, est = fu.verificoPeriodo(fecInicio, fecFin, estado)
+
+    # inicio verificacion de mensajes
+    menlimit = str(datos[1].get("parm2"))                           # Cantidad limite de mensajes a enviar
+    camlimit = str(datos[1].get("parm3"))                           # Cantidad limite de campañas a enviar
+    periodo = str(datos[1].get("periodo"))                          # Periodo en ejecucion
+
+
+    ccam, cmen = veriPeriodo(menlimit, camlimit, periodo)
+
+
+
 def consultarConfEmpresa():
     '''Consultar los tipos de mensajes habilitados para la empresa'''
 
+    print('Test')

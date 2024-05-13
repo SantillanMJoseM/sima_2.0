@@ -1,4 +1,4 @@
-from Funciones import funciones
+from Funciones import funciones as fu
 from Funciones.Consultas import consultas as con
 
 # Consulta  de empresas disponibles en el sistema
@@ -14,35 +14,40 @@ for empresa in empresas:
 emp = input('Ingrese la empresa correspondiente a trabajar: ')
 
 # Limpieza de la pantalla 
-funciones.limpiar_pantalla()
-
-menus = con.consultaMenu()
-print('''Listado de menus en el sistema
-      ''')    
-# Impresion de menus encontrados
-for menu in menus: 
-    print('('+str(menu.get("menid"))+') - '+str(menu.get("mendesc")))
+fu.limpiar_pantalla()
 
 # Traigo datos de la tabla para poder generar la coneccion
 datos = con.consultarDatConexion(emp)
 
-# Opciones disponbles en la seleccion del menu
-opcion = input('Ingrese la opcion de menu correspondiente: ')
+# Disparo las verificaciones para la ejecucion del menu.
+result = con.veriEmpresa(datos)
 
-# Limpieza de la pantalla 
-funciones.limpiar_pantalla()
+# Si las verificaciones resultan correctas muestro el menu
+if result:
+    menus = con.consultaMenu()
+    print('''Listado de menus en el sistema
+          ''')    
+    # Impresion de menus encontrados
+    for menu in menus: 
+        print('('+str(menu.get("menid"))+') - '+str(menu.get("mendesc")))
 
-# Inicio menu en falso
-menid_encontrado = False
+    # Opciones disponbles en la seleccion del menu
+    opcion = input('Ingrese la opcion de menu correspondiente: ')
 
-# Iterar sobre los diccionarios en la lista
-for menu in menus:
-    if "menid" in menu and str(menu["menid"]) == opcion:
-        menid_encontrado = True
-        break
+    # Limpieza de la pantalla 
+    fu.limpiar_pantalla()
 
-# Verificar si se encontró el menid
-if menid_encontrado:
-    print("Se encontró el menid en la lista.")
-else:
-    print("No se encontró el menid en la lista.")
+    # Inicio menu en falso
+    menid_encontrado = False
+
+    # Iterar sobre los diccionarios en la lista
+    for menu in menus:
+        if "menid" in menu and str(menu["menid"]) == opcion:
+            menid_encontrado = True
+            break
+
+    # Verificar si se encontró el menid
+    if menid_encontrado:
+        print("Se encontró el menid en la lista.")
+    else:
+        print("No se encontró el menid en la lista.")
