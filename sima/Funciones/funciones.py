@@ -5,7 +5,6 @@ from Funciones.Consultas import consultas as con
 
 sys.path.append('../') 
 
-
 def limpiar_pantalla():
     '''Funcion para limpiar pantalla del terminal'''
     os.system('cls')
