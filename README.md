@@ -7,7 +7,7 @@ Funcionamiento basico del sistema
 
 1-. Lista empresas que utilizan el sistema
 2-. Con todos los datos obtenidos de la empresa, empieza a generar las verificaciones.
-  2.1-. De la tabla whatsdetdefi obtiene el ultimo periodo para la empresa en cuestoin y lo verifica contra la fecha actual.
+  2.1-. De la tabla whatsdetdefi obtiene el ultimo periodo para la empresa en cuestion y lo verifica contra la fecha actual.
   2.2-. De la table whatsdetdefi el seteo de (cantidad mensajes y campañas a enviar)
   2.3-. Con los datos de conexion obtenidos, busca la base y conecta con la misma. Teniendo esto en cuenta genera la             verificacion de los sigueintes puntos.
   2.4-. Verfica que la cantidad de campañas sea menor a la establecida en el seteo.

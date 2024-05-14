@@ -47,8 +47,27 @@ def ejecutoMenu(datos, opmenu):
     # 4 - Tener disponibilidad de mensajes pendientes, luego en el proceso del archivo subido al ftp
 
     # Verifico que el periodo este dentro de termino de ejecucion o corto la misma
-    # ejecuta = fu.verificoPeriodo(parm6, parm7, emp_estado)          # Error 1 estado = 0, error 2 fuera de valides de periodo
+    estperiodo, errorcode = fu.verificoPeriodo(parm6, parm7, emp_estado)          # Error 1 estado = 0, error 2 fuera de valides de periodo
+    estcampanias = con.cantCampanias(datos)
+    estamensajes = con.cantMensajer(datos)
+    est = 0
 
+    if estperiodo: 
+        est = 0
+    else :
+        est = 1 
+    
+    if estcampanias: 
+        est = 0
+    else: 
+        est = 2
+
+    if estamensajes:
+        est = 0
+    else:
+        est = 3
+    
+    return est
 
 def mailAviso():
     '''Genera los correos electronicos para avisos(periodos invalidos, topes superados)'''

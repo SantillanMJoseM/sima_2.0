@@ -53,7 +53,6 @@ def consultaMenu():
     except:
         print(f'Error en la coneccion a la base de datos {bd}')
         
-
 def consultaEmpresas():
     '''Consulta de todas las empresas cargadas'''
 
@@ -100,7 +99,6 @@ def consultaEmpresas():
     except:
         print(f'Error en la coneccion a la base de datos {bd}')
         
-
 def consultarDatConexion(defiid):
     '''Consulta los datos de coneccion a la base de datos de la empresa seleccionada'''
 
@@ -196,26 +194,62 @@ def conexionBdEmpresa(datos):
     periodo = str(datos[1].get("periodo"))                          # Periodo en ejecucion
     estado = str(datos[1].get("estado"))                            # Estado del periodo (0 = inactivo, 1 = Activo)
 
-def veriEmpresa():
+def cantCampanias(datos):
+    '''Cuento la cantidad de campañas en el periodo'''
+
+    # Cargar variables de entorno desde el archivo .env
+    load_dotenv()
+
+    # Levanto las variables ya definidas
+    server = os.getenv("servidor")
+
+    # Obtengo los parametos para generar toda la conexion
+    sql_base = str(datos[0].get("defdb"))
+    sql_user = str(datos[0].get("defdbuser"))
+    sql_pass = str(datos[0].get("defdbpass"))
+
+    periodo = fu.convertirDateTime(str(datos[1].get("periodo")))
+    resultado = False
+
+    try:
+        conexion = pyodbc.connect('DRIVER={SQL SERVER};SERVER='+server+';DATABASE='+sql_base+';UID='+sql_user+';PWD='+sql_pass)
+
+        # Crear un cursor
+        cursor = conexion.cursor()
+
+        # Consulta ejecutada
+        cursor.execute(f'SELECT count(1) FROM whatscampanias where periodo = {periodo}')
+
+        # Obtener el resultado
+        resu = cursor.fetchall()
+
+        # Cerrar el cursor y la conexión
+        cursor.close()
+        conexion.close()
+
+    except:
+        print(f'Error en la coneccion a la base de datos {sql_base}')
+    
+    # Verifico que la cantidad del periodo este dentro de los parametros
+    if int(resu) <= int(datos[1].get("parm3")):
+        resultado = True
+    else:
+        resultado = False
+    
+    return (resultado)
+
+def veriEmpresa(datos):
     '''Genera las verificaiones de preridos. campañas, mensajes'''
 
-    # Inicio verificacion de fecha
-    fecinicio = fu.convertirDateTime(str(datos[1].get("parm6")))    # Fecha inicio de periodo 
-    fecfin = fu.convertirDateTime(str(datos[1].get("parm7")))       # Fecha fin de periodo
-    estado = str(datos[1].get("estado"))                            # Estado del periodo (0 = inactivo, 1 = Activo)
+    result =  fu.ejecutoMenu(datos)
 
-    valido, est = fu.verificoPeriodo(fecInicio, fecFin, estado)
-
-    # inicio verificacion de mensajes
-    menlimit = str(datos[1].get("parm2"))                           # Cantidad limite de mensajes a enviar
-    camlimit = str(datos[1].get("parm3"))                           # Cantidad limite de campañas a enviar
-    periodo = str(datos[1].get("periodo"))                          # Periodo en ejecucion
-
-
-    ccam, cmen = veriPeriodo(menlimit, camlimit, periodo)
-
-
-
+    if result == 0: 
+        result = True
+    else:
+        result = False
+    
+    return result
+    
 def consultarConfEmpresa():
     '''Consultar los tipos de mensajes habilitados para la empresa'''
 
