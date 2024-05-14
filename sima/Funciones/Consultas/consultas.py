@@ -1,6 +1,7 @@
 import os 
 import pyodbc
 import sys
+from datetime import datetime
 
 from dotenv import load_dotenv
 from Funciones import funciones as fu
@@ -64,7 +65,7 @@ def consultaEmpresas():
     bd = os.getenv("bd")
     user = os.getenv("user")
     password = os.getenv("password")
-
+    
     try:
         conexion = pyodbc.connect('DRIVER={SQL SERVER};SERVER='+server+';DATABASE='+bd+';UID='+user+';PWD='+password)
 
@@ -207,9 +208,9 @@ def cantCampanias(datos):
     sql_base = str(datos[0].get("defdb"))
     sql_user = str(datos[0].get("defdbuser"))
     sql_pass = str(datos[0].get("defdbpass"))
-
-    periodo = fu.convertirDateTime(str(datos[1].get("periodo")))
+    periodo = (str(datos[1].get("periodo")))
     resultado = False
+    resu = 0
 
     try:
         conexion = pyodbc.connect('DRIVER={SQL SERVER};SERVER='+server+';DATABASE='+sql_base+';UID='+sql_user+';PWD='+sql_pass)
@@ -218,10 +219,14 @@ def cantCampanias(datos):
         cursor = conexion.cursor()
 
         # Consulta ejecutada
-        cursor.execute(f'SELECT count(1) FROM whatscampanias where periodo = {periodo}')
+        cursor.execute("SELECT count(1) FROM whatscampanias where periodo = '"+ periodo +"'")
 
         # Obtener el resultado
-        resu = cursor.fetchall()
+        resu = cursor.fetchval()
+
+        # Verificar si la variable es None y asignar 0
+        if resu is None:
+            resu = 0
 
         # Cerrar el cursor y la conexión
         cursor.close()
@@ -239,11 +244,13 @@ def cantCampanias(datos):
     return (resultado)
 
 def veriEmpresa(datos):
-    '''Genera las verificaiones de preridos. campañas, mensajes'''
+    '''Genera las verificaciones de preridos. campañas, mensajes'''
 
-    result =  fu.ejecutoMenu(datos)
+    # Genero verificaciones para saber si muestro menu
+    estPeriodo, estCampanias, estMensajes =  fu.ejecutoMenu(datos)
 
-    if result == 0: 
+
+    if estPeriodo == 0 and estCampanias == 0 and estMensajes == 0: 
         result = True
     else:
         result = False

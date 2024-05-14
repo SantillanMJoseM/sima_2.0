@@ -53,4 +53,4 @@ if result:
         print("No se encontró el menid en la lista.")
 
 else: 
-    print('La empresa en cuestion no tiene, limite disponible de mensajes, campalas o se encuentra en un periodo habilitado')
+    print('La empresa en cuestion no tiene, limite disponible de mensajes, campañas o se encuentra en un periodo habilitado')

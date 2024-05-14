@@ -15,11 +15,12 @@ def verificoPeriodo(fecInicio, fecFin, estado):
     # Obtener la fecha actual
     fecha_actual = datetime.now()
 
+    print(fecInicio, fecFin, fecha_actual, estado)
     # Inicializo variables
     est = 0
     valido = False    
-    if int(estado) > 0: 
-        if fecInicio >= fecha_actual and fecFin <= fecha_actual:
+    if int(estado) == 1: 
+        if fecInicio <= fecha_actual and fecFin >= fecha_actual:
             valido = True
             est = 0
         else:
@@ -31,12 +32,20 @@ def verificoPeriodo(fecInicio, fecFin, estado):
     # Devuelvo resultado de ejecucion
     return valido, est
 
-def convertirDateTime(fecha):
+def convertirDateTime(fecha, formato):
     '''Convierte el string recibido en datetime'''
+    
+    # Formatos  1 = datetime, 2 = date
+    if formato == 1:
+        fecha = datetime.strptime(fecha, "%Y-%m-%d %H:%M:%S")
+    elif formato == 2:
+        fecha = datetime.strptime(fecha, "%Y-%m-%d")
+    else:
+        fecha = datetime.strptime('1900-01-01', "%Y-%m-%d")
 
-    return datetime.strptime(fecha, "%Y-%m-%d %H:%M:%S")
+    return fecha
 
-def ejecutoMenu(datos, opmenu):
+def ejecutoMenu(datos):
     '''Ejecucion de opcion del menu seleccionada'''
 
     # Antes de ejecutar el menu realizara todas las verificaciones correspondientes para la empresa
@@ -45,28 +54,33 @@ def ejecutoMenu(datos, opmenu):
     # 3 - Se verificaran los parametros minimos para el funcionamiento del sistema 
     # 4 - Tener disponibilidad de mensajes pendientes, luego en el proceso del archivo subido al ftp
 
+    perInicio = convertirDateTime(str(datos[1].get("parm6")),1) 
+    perFin = convertirDateTime(str(datos[1].get("parm7")),1) 
+    estado = str(datos[1].get("estado")) 
+
     # Verifico que el periodo este dentro de termino de ejecucion o corto la misma
-    estperiodo, errorcode = fu.verificoPeriodo(parm6, parm7, emp_estado)          # Error 1 estado = 0, error 2 fuera de valides de periodo
+    estperiodo, errorcode = verificoPeriodo(perInicio, perFin , estado)          # Error 1 estado = 0, error 2 fuera de valides de periodo
+        
+    # Verifico cantidad de campañas ejecutadas en el periodo 
     estcampanias = con.cantCampanias(datos)
-    estamensajes = con.cantMensajer(datos)
-    est = 0
+    estamensajes = True # con.cantMensajes(datos)
 
     if estperiodo: 
-        est = 0
+        est1 = 0
     else :
-        est = 1 
+        est1 = 1 
     
     if estcampanias: 
-        est = 0
+        est2 = 0
     else: 
-        est = 2
+        est2 = 1
 
     if estamensajes:
-        est = 0
+        est3 = 0
     else:
-        est = 3
+        est3 = 1
     
-    return est
+    return est1, est2, est3
 
 def mailAviso():
     '''Genera los correos electronicos para avisos(periodos invalidos, topes superados)'''
