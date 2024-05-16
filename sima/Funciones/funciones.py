@@ -15,7 +15,6 @@ def verificoPeriodo(fecInicio, fecFin, estado):
     # Obtener la fecha actual
     fecha_actual = datetime.now()
 
-    print(fecInicio, fecFin, fecha_actual, estado)
     # Inicializo variables
     est = 0
     valido = False    
