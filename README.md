@@ -44,7 +44,7 @@ Se generan instancias que contendran los menus principales para las funciones de
 
 *//////// Menu de servicios FPT ////////*
 
-1-. Tomar rutas de Origen y Destino desde la base de datos para la empresa seleccionada 
+~~1-. Tomar rutas de Origen y Destino desde la base de datos para la empresa seleccionada~~
 
 2 -. Ver si existe algo en la carpeta del ftp (Origen) 
 
