@@ -1,3 +1,4 @@
+import os, subprocess, sys
 from Funciones import funciones as fu
 from Funciones.Consultas import consultas as con
 
@@ -48,7 +49,14 @@ if result:
 
     # Verificar si se encontró el menid
     if menid_encontrado:
-        print("Se encontró el menid en la lista.")
+
+        # Armo ruta de menu a ejecutar
+        menu_script = os.path.abspath('sima/Funciones/Menu/'+str(menu.get("menpy"))).replace('\\', '/')
+
+        # Genero la ejecucion del menu seleccionado
+        resu = subprocess.run(['python', f"{menu_script}"], capture_output=True, text=True)
+        print(resu)
+
     else:
         print("No se encontró el menid en la lista.")
 

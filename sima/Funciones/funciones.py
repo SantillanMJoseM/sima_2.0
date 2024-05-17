@@ -1,5 +1,4 @@
-import os
-import sys
+import os, sys
 from datetime import datetime
 from Funciones.Consultas import consultas as con
 

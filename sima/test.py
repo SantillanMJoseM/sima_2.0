@@ -1,5 +1,8 @@
 from Funciones.Consultas import consultas as con
+from Funciones.Menu import ftp 
 
-print(con.conexionBdEmpresa(con.consultarDatConexion(1)))
+ftp.iniciarServicioFtp()
+
+
 
 

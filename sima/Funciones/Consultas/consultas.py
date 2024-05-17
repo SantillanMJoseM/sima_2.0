@@ -1,6 +1,4 @@
-import os 
-import pyodbc
-import sys
+import os, sys, pyodbc
 from datetime import datetime
 
 from dotenv import load_dotenv
@@ -256,6 +254,12 @@ def veriEmpresa(datos):
         result = False
     
     return result
+
+def buscoDirectorios():
+    '''Busco los directorios conf para la empresa seleccionada'''
+
+    # Cargar variables de entorno desde el archivo .env
+    load_dotenv()
     
 def consultarConfEmpresa():
     '''Consultar los tipos de mensajes habilitados para la empresa'''
