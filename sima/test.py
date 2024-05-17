@@ -3,6 +3,3 @@ from Funciones.Menu import ftp
 
 ftp.iniciarServicioFtp()
 
-
-
-

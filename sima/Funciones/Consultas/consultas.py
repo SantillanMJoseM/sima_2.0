@@ -255,13 +255,47 @@ def veriEmpresa(datos):
     
     return result
 
-def buscoDirectorios():
+def buscoDirectorios(datos, menid):
     '''Busco los directorios conf para la empresa seleccionada'''
 
     # Cargar variables de entorno desde el archivo .env
     load_dotenv()
     
+    # Levanto las variables ya definidas
+    server = os.getenv("servidor")
+    sql_base = str(datos[0].get("defdb"))
+    sql_user = str(datos[0].get("defdbuser"))
+    sql_pass = str(datos[0].get("defdbpass"))
+
+    try:
+        conexion = pyodbc.connect('DRIVER={SQL SERVER};SERVER='+server+';DATABASE='+sql_base+';UID='+sql_user+';PWD='+sql_pass)
+
+        # Crear un cursor
+        cursor = conexion.cursor()
+
+        # Consulta ejecutada
+        cursor.execute('SELECT * FROM whatsdetmen where '+ menid)
+
+         # Obtener los nombres de las columnas
+        columna_nombre = [columna[0] for columna in cursor.description]
+
+        # Obtener todos los resultados en una lista de tuplas
+        resu = cursor.fetchall()
+
+        # Crear una lista de diccionarios con los resultados
+        resultado = []
+
+        for fila in resu:
+            diccionario = {}
+            for columna, value in zip(columna_nombre, fila):
+                diccionario[columna] = value
+            resultado.append(diccionario)
+
+        return(resultado)
+    except:
+        pass
+
 def consultarConfEmpresa():
     '''Consultar los tipos de mensajes habilitados para la empresa'''
 
-    print('Test')
+    return print('Test')
