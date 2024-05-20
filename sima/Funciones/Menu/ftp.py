@@ -1,4 +1,4 @@
-import os, sys,time, keyboard
+import os, sys,time, keyboard, json
 from dotenv import load_dotenv
 
 from Funciones.Consultas import consultas as con
@@ -9,7 +9,9 @@ sys.path.append('../')
 load_dotenv()
 
 argumento =  sys.argv[1:]
-print(argumento)
+#datos = json.dumps(argumento[0])
+datos = json.loads(argumento[0])
+print(type(datos))
 
 while True:
     if keyboard.is_pressed('esc'):
@@ -18,8 +20,12 @@ while True:
     print(os.getenv("rinicio") +' Iniciando servicio SIMA FTP ' + os.getenv("rfin"))
   
     # Obtener los parametos para la ejecucion del servicio
-    #param = con.buscoDirectorios(datos, menid)
+    #param = con.buscoDirectorios(datos, argumento[1])
 
+    print(datos)
+
+    #print(datos.get("parm2"))
+    print(argumento[1])
     #parm0 = Segundos para enviar mensaje
     #parm1 = Segundos para confirmar el envio
     #parm2 = Ruta origen de imagen

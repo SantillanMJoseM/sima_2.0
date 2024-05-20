@@ -1,4 +1,4 @@
-import os, subprocess, sys, keyboard
+import os, subprocess, sys, keyboard, json
 
 from Funciones import funciones as fu
 from Funciones.Consultas import consultas as con
@@ -58,8 +58,8 @@ if result:
         entorno = os.path.abspath('sima/Scripts/activate').replace('\\', '/')
 
         # Convierto diccionario en cadena
-        datos_str = ' '.join(map(str, datos))
-        
+        #datos_str = ' '.join(map(str, datos))
+        datos_str = json.dumps(datos)
         # Activar el entorno virtual y ejecutar el menú seleccionado
         resu = subprocess.run(['python', menu_script, datos_str, str(menu.get("menid"))], text=True, shell=True)
 
