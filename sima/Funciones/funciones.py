@@ -1,5 +1,6 @@
-import os, sys
+import os, sys, json,ast
 from datetime import datetime
+from decimal import Decimal
 from Funciones.Consultas import consultas as con
 
 sys.path.append('../') 
@@ -44,6 +45,7 @@ def convertirDateTime(fecha, formato):
     return fecha
 
 def ejecutoMenu(datos):
+    
     '''Ejecucion de opcion del menu seleccionada'''
 
     # Antes de ejecutar el menu realizara todas las verificaciones correspondientes para la empresa
@@ -79,6 +81,19 @@ def ejecutoMenu(datos):
         est3 = 1
     
     return est1, est2, est3
+
+def convertDic(datos):
+    # Separar la cadena en partes que representen los diccionarios individuales
+    dict_strs = datos.split('} {')
+
+    # Agregar los caracteres de apertura y cierre que fueron eliminados por la separación
+    dict_strs = [s + '}' if not s.endswith('}') else s for s in dict_strs]
+    dict_strs = ['{' + s if not s.startswith('{') else s for s in dict_strs]
+
+    # Convertir las cadenas a diccionarios
+    dicts = [ast.literal_eval(d) for d in dict_strs]
+
+    return dicts
 
 def mailAviso():
     '''Genera los correos electronicos para avisos(periodos invalidos, topes superados)'''

@@ -8,10 +8,27 @@ sys.path.append('../')
 # Cargar variables de entorno desde el archivo .env
 load_dotenv()
 
-argumento =  sys.argv[1:]
+argumento =  sys.argv[:]
+
 #datos = json.dumps(argumento[0])
-datos = json.loads(argumento[0])
-print(type(datos))
+#datos = json.loads(argumento[0])
+datos = argumento[1]
+print(datos)
+
+# Dividir la cadena en fragmentos de diccionarios
+dict_strs = datos.split("} {")
+
+# Corregir 
+dict_strs[0] = dict_strs[0].strip("{")
+dict_strs[-1] = dict_strs[-1].strip("}")
+
+# Convertir cada fragmento en un diccionario Python
+dic = [eval(d) for d in dict_strs]
+
+print(type(dic))
+print(len(datos))
+print(dic)
+
 
 while True:
     if keyboard.is_pressed('esc'):
@@ -22,10 +39,9 @@ while True:
     # Obtener los parametos para la ejecucion del servicio
     #param = con.buscoDirectorios(datos, argumento[1])
 
-    print(datos)
 
     #print(datos.get("parm2"))
-    print(argumento[1])
+
     #parm0 = Segundos para enviar mensaje
     #parm1 = Segundos para confirmar el envio
     #parm2 = Ruta origen de imagen

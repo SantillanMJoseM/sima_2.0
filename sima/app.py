@@ -57,9 +57,11 @@ if result:
         # Armar ruta del entorno virtual
         entorno = os.path.abspath('sima/Scripts/activate').replace('\\', '/')
 
+        print(datos)
         # Convierto diccionario en cadena
-        #datos_str = ' '.join(map(str, datos))
-        datos_str = json.dumps(datos)
+        datos_str = ' '.join(map(str, datos))
+        #datos_str =  json.dumps(datos, default=fu.convertJson, indent=4)
+        #print(datos_str)
         # Activar el entorno virtual y ejecutar el menú seleccionado
         resu = subprocess.run(['python', menu_script, datos_str, str(menu.get("menid"))], text=True, shell=True)
 
