@@ -158,6 +158,13 @@ def mCompro(valor):
     else:
         return valor
 
+# Renombro Archivo
+def archivoRenom(archOri, archDes):
+    try: 
+        os.rename(archOri, archDes)
+    except OSError as e:
+       return e
+      
 def mailAviso():
     '''Genera los correos electronicos para avisos(periodos invalidos, topes superados)'''
     print('Test')

@@ -52,10 +52,17 @@ while True:
         for archivo in archivos:
 
             # Divido el archivo en nombre y formato para verificar
-            nombre, extencion = funciones.lExtencion(archivo)
+            nombre, extencion = fu.lExtencion(archivo)
 
             # Verifico el formato para comprender las acciones a ejecutar
             if extencion.upper() == '.XLS' or extencion.upper() == '.XLSX':
+
+                # Genero nevo nombre para evitar dupliciadad
+                nArchivo = fu.nArchivo(nombre, extencion)
+
+                # Divido el archivo en nombre y formato para verificar
+                nombre, extencion = fu.lExtencion(nArchivo)
+
                 print("Acciones para documentos")
             elif extencion.upper() == '.JPG' or extencion.upper() == '.JPEG' or extencion.upper() == '.BMP':    
                 # Acciones para imagenes
