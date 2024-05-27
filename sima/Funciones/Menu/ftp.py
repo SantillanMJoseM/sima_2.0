@@ -43,7 +43,10 @@ while True:
     # Verifico los parametros obtenidos
     if rOrigen != None and rDestino != None:
         if os.getenv("debug"):
-            print(f'El seteo de carpeta de origen es {rOrigen} el seteo de capeta desino es {rDestino}')    
+            print(f'El seteo de carpeta de origen es {rOrigen} el seteo de capeta desino es {rDestino}')  
+
+        # Inicia los procesos de verificacion sobre los archivos encontrados 
+          
     else:
         print('La ruta del sistema FTP no esta seteada')   
     # Espera 30 segundos antes de la siguiente iteración

@@ -1,4 +1,5 @@
-import os, sys, json,ast
+import os, sys, json, ast
+import pandas as pd
 from datetime import datetime
 from decimal import Decimal
 from Funciones.Consultas import consultas as con
@@ -94,6 +95,68 @@ def convertDic(datos):
     dicts = [ast.literal_eval(d) for d in dict_strs]
 
     return dicts
+
+# Limpio espacios extras en cadenas generadas.
+def lEspacios(cadena: str) -> None: 
+    '''Limpia cadena de espacios dobles'''
+    #Genero ciclo mientras existan espacios dobles
+    while '  ' in cadena:
+        cadena = cadena.replace('  ',' ')
+        
+    #retorno cadena limpia
+    return cadena
+
+# Busco nombre y extencion del archivo
+def lExtencion(archNom: str) -> None:
+    '''Toma string de arhivo y divide extencion de nombre'''
+    nombre, extension = os.path.splitext(archNom)
+
+    # Retorno de los parametros
+    return nombre, extension
+
+# Renombro archivo para evitar duplicidad
+def narchivo(nombre: str, extencion: str)-> None:
+    '''Funcion que renombra el archivo'''
+    # Obtener la fecha actual
+    fechaActual = datetime.today()
+
+    # Formatear la fecha como una cadena
+    fechaFormateada = fechaActual.strftime("%Y%m%d%H%M%S")
+
+    # Nuevo nombre del archivo con la fecha
+    nuevoNombre = f'{nombre}_{fechaFormateada}{extencion}'
+
+    # Retorno nuevo nombre de archivo
+    return nuevoNombre
+
+# Compruebo los valores de cada celda, y si son vacios cargo valor por defecto.
+def mcompro(valor):
+    '''Verifica si es valor enviado es nan'''
+    if isinstance(valor, int):
+        if math.isnan(valor):
+            return ''
+        else:
+            return valor
+    elif isinstance(valor, float):
+        if math.isnan(valor):
+            return ''
+        else:
+            return valor
+    elif isinstance(valor, str):
+        if (valor == 'nan') or (valor == 'NaT') or (valor =='nat'):
+            return ''
+        else:
+            return valor
+    elif isinstance(valor, list):
+        return valor
+    elif isinstance(valor, tuple):
+        return valor
+    elif isinstance(valor, dict):
+        return valor
+    elif isinstance(valor, pd._libs.tslibs.nattype.NaTType):
+        return ''
+    else:
+        return valor
 
 def mailAviso():
     '''Genera los correos electronicos para avisos(periodos invalidos, topes superados)'''
