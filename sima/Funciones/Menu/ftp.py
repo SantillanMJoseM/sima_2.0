@@ -45,8 +45,24 @@ while True:
         if os.getenv("debug"):
             print(f'El seteo de carpeta de origen es {rOrigen} el seteo de capeta desino es {rDestino}')  
 
-        # Inicia los procesos de verificacion sobre los archivos encontrados 
-          
+        # Genero lista de los archivos que pueda haber en la ruta
+        archivos = os.listdir(rOrigen)
+
+        # Inicio recorrido de archivos en el listado 
+        for archivo in archivos:
+
+            # Divido el archivo en nombre y formato para verificar
+            nombre, extencion = funciones.lExtencion(archivo)
+
+            # Verifico el formato para comprender las acciones a ejecutar
+            if extencion.upper() == '.XLS' or extencion.upper() == '.XLSX':
+                print("Acciones para documentos")
+            elif extencion.upper() == '.JPG' or extencion.upper() == '.JPEG' or extencion.upper() == '.BMP':    
+                # Acciones para imagenes
+                print("Acciones para imagenes")
+            else:
+                print(f"Formato no admitido por el sistema {extencion}")
+            
     else:
         print('La ruta del sistema FTP no esta seteada')   
     # Espera 30 segundos antes de la siguiente iteración

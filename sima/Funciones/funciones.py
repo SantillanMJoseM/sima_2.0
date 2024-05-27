@@ -115,7 +115,7 @@ def lExtencion(archNom: str) -> None:
     return nombre, extension
 
 # Renombro archivo para evitar duplicidad
-def narchivo(nombre: str, extencion: str)-> None:
+def nArchivo(nombre: str, extencion: str)-> None:
     '''Funcion que renombra el archivo'''
     # Obtener la fecha actual
     fechaActual = datetime.today()
@@ -130,7 +130,7 @@ def narchivo(nombre: str, extencion: str)-> None:
     return nuevoNombre
 
 # Compruebo los valores de cada celda, y si son vacios cargo valor por defecto.
-def mcompro(valor):
+def mCompro(valor):
     '''Verifica si es valor enviado es nan'''
     if isinstance(valor, int):
         if math.isnan(valor):
