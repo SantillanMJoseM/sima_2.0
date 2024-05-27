@@ -10,24 +10,11 @@ load_dotenv()
 
 argumento =  sys.argv[:]
 
-#datos = json.dumps(argumento[0])
-#datos = json.loads(argumento[0])
+# Se toma argumento de la empresa elegida
 datos = argumento[1]
-print(datos)
 
-# Dividir la cadena en fragmentos de diccionarios
-dict_strs = datos.split("} {")
-
-# Corregir 
-dict_strs[0] = dict_strs[0].strip("{")
-dict_strs[-1] = dict_strs[-1].strip("}")
-
-# Convertir cada fragmento en un diccionario Python
-dic = [eval(d) for d in dict_strs]
-
-print(type(dic))
-print(len(datos))
-print(dic)
+# Se consultan los datos de la empresa para continual la gestion
+datos = con.consultarDatConexion(argumento[0])
 
 
 while True:
@@ -37,10 +24,7 @@ while True:
     print(os.getenv("rinicio") +' Iniciando servicio SIMA FTP ' + os.getenv("rfin"))
   
     # Obtener los parametos para la ejecucion del servicio
-    #param = con.buscoDirectorios(datos, argumento[1])
-
-
-    #print(datos.get("parm2"))
+    param = con.buscoDirectorios(datos, argumento[1])
 
     #parm0 = Segundos para enviar mensaje
     #parm1 = Segundos para confirmar el envio
@@ -51,16 +35,16 @@ while True:
     #parm6 = A definir
     #parm7 = A definir
     
-    #rOrigen = param.get("parm2")
-    #rDestino = param.get("parm3")
-    #print(rDestino, rOrigen)
+    # Carpetas de Destino y origen para ftp
+    rOrigen = param.get("parm2")
+    rDestino = param.get("parm3")
+    print(rDestino, rOrigen)
 
     # Verifico los parametros obtenidos
-    #if rOrigen != None and rDestino != None:
-    #    if os.getenv("debug"):
-    #        print(f'El seteo de carpeta de origen es {rOrigen} el seteo de capeta desino es {rDestino}')
-    #    
-    #else:
-    #    print('La ruta del sistema FTP no esta seteada')   
+    if rOrigen != None and rDestino != None:
+        if os.getenv("debug"):
+            print(f'El seteo de carpeta de origen es {rOrigen} el seteo de capeta desino es {rDestino}')    
+    else:
+        print('La ruta del sistema FTP no esta seteada')   
     # Espera 30 segundos antes de la siguiente iteración
     time.sleep(5)
