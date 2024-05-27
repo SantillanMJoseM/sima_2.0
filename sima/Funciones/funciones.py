@@ -96,7 +96,6 @@ def convertDic(datos):
 
     return dicts
 
-# Limpio espacios extras en cadenas generadas.
 def lEspacios(cadena: str) -> None: 
     '''Limpia cadena de espacios dobles'''
     #Genero ciclo mientras existan espacios dobles
@@ -106,7 +105,6 @@ def lEspacios(cadena: str) -> None:
     #retorno cadena limpia
     return cadena
 
-# Busco nombre y extencion del archivo
 def lExtencion(archNom: str) -> None:
     '''Toma string de arhivo y divide extencion de nombre'''
     nombre, extension = os.path.splitext(archNom)
@@ -114,7 +112,6 @@ def lExtencion(archNom: str) -> None:
     # Retorno de los parametros
     return nombre, extension
 
-# Renombro archivo para evitar duplicidad
 def nArchivo(nombre: str, extencion: str)-> None:
     '''Funcion que renombra el archivo'''
     # Obtener la fecha actual
@@ -129,7 +126,6 @@ def nArchivo(nombre: str, extencion: str)-> None:
     # Retorno nuevo nombre de archivo
     return nuevoNombre
 
-# Compruebo los valores de cada celda, y si son vacios cargo valor por defecto.
 def mCompro(valor):
     '''Verifica si es valor enviado es nan'''
     if isinstance(valor, int):
@@ -158,7 +154,6 @@ def mCompro(valor):
     else:
         return valor
 
-# Renombro Archivo
 def archivoRenom(archOri, archDes):
     try: 
         os.rename(archOri, archDes)

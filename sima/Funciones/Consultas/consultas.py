@@ -274,7 +274,7 @@ def buscoDirectorios(datos, menid):
         cursor = conexion.cursor()
 
         # Consulta ejecutada
-        cursor.execute('SELECT * FROM whatsdetmen where '+ menid)
+        cursor.execute('SELECT * FROM whatsdetmen where menid = '+ menid)
 
          # Obtener los nombres de las columnas
         columna_nombre = [columna[0] for columna in cursor.description]

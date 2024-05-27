@@ -11,21 +11,26 @@ load_dotenv()
 argumento =  sys.argv[:]
 
 # Se toma argumento de la empresa elegida
-datos = argumento[1]
+emp = argumento[1]
+
+# Se toma argumento de menu elegido
+menid = argumento[2]
 
 # Se consultan los datos de la empresa para continual la gestion
-datos = con.consultarDatConexion(argumento[0])
+datos = con.consultarDatConexion(emp)
 
+# Obtener los parametos para la ejecucion del servicio
+param = con.buscoDirectorios(datos, menid)
 
+# Imprimo Inicio de Servicio
+print(os.getenv("rinicio") +' Iniciando servicio SIMA FTP ' + os.getenv("rfin"))
+
+# Inicio ciclo de escaneo
 while True:
     if keyboard.is_pressed('esc'):
         print("Tecla 'Esc' presionada. Cerrando ejecucion de sistema FTP")
         break
-    print(os.getenv("rinicio") +' Iniciando servicio SIMA FTP ' + os.getenv("rfin"))
   
-    # Obtener los parametos para la ejecucion del servicio
-    param = con.buscoDirectorios(datos, argumento[1])
-
     #parm0 = Segundos para enviar mensaje
     #parm1 = Segundos para confirmar el envio
     #parm2 = Ruta origen de imagen
@@ -36,9 +41,8 @@ while True:
     #parm7 = A definir
     
     # Carpetas de Destino y origen para ftp
-    rOrigen = param.get("parm2")
-    rDestino = param.get("parm3")
-    print(rDestino, rOrigen)
+    rOrigen = param[0].get("parm2").replace('\\', '/')
+    rDestino = param[0].get("parm3").replace('\\', '/')
 
     # Verifico los parametros obtenidos
     if rOrigen != None and rDestino != None:
@@ -69,7 +73,6 @@ while True:
                 print("Acciones para imagenes")
             else:
                 print(f"Formato no admitido por el sistema {extencion}")
-            
     else:
         print('La ruta del sistema FTP no esta seteada')   
     # Espera 30 segundos antes de la siguiente iteración
