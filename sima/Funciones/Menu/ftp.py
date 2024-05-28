@@ -7,14 +7,10 @@ sys.path.append('../')
 
 # Cargar variables de entorno desde el archivo .env
 load_dotenv()
-
 argumento =  sys.argv[:]
 
-# Se toma argumento de la empresa elegida
-emp = argumento[1]
-
-# Se toma argumento de menu elegido
-menid = argumento[2]
+emp = argumento[1]# Se toma argumento de la empresa elegida
+menid = argumento[2] # Se toma argumento de menu elegido
 
 # Se consultan los datos de la empresa para continual la gestion
 datos = con.consultarDatConexion(emp)
@@ -44,49 +40,50 @@ while True:
     #parm7 = A definir
     
     # Carpetas de Destino y origen para ftp
-    rOrigen = param[0].get("parm2") #.replace('\\', '/')
-    rDestino = param[0].get("parm3") #.replace('\\', '/')
+    rOrigen = param[0].get("parm2")
+    rDestino = param[0].get("parm3")
 
     # Genero verificacion de valores.
-    rOrigen = fu.mCompro(rOrigen)
-    rDestino = fu.mCompro(rDestino)
+    rOrigen = fu.cambBarr(fu.mCompro(rOrigen))
+    rDestino = fucambBarr(fu.mCompro(rDestino))
 
-    print(rOrigen, rDestino)
-
-    # Verifico los parametros obtenidos
-    if rOrigen != None and rDestino != None:
+    # Verifico los parametros obtenidos, no nulos y no vacios
+    if ((rOrigen != None and rDestino != None) and (rOrigen != '' and rDestino != '')):
         if os.getenv("debug"):
             print(f'El seteo de carpeta de origen es {rOrigen} el seteo de capeta desino es {rDestino}')  
 
         # Genero lista de los archivos que pueda haber en la ruta
         archivos = os.listdir(rOrigen)
 
-        # Inicio recorrido de archivos en el listado 
-        for archivo in archivos:
+        # Proceso solo si existen archivos
+        if len(archivos) > 0:
 
-            # Divido el archivo en nombre y formato para verificar
-            nombre, extencion = fu.lExtencion(archivo)
-
-            # Verifico el formato para comprender las acciones a ejecutar
-            if extencion.upper() in ['.XLS', '.XLSX']:
-
-                # Genero nevo nombre para evitar dupliciadad
-                nArchivo = fu.nArchivo(nombre, extencion)
+            # Inicio recorrido de archivos en el listado 
+            for archivo in archivos:
 
                 # Divido el archivo en nombre y formato para verificar
-                nombre, extencion = fu.lExtencion(nArchivo)
+                nombre, extencion = fu.lExtencion(archivo)
 
-                print("Acciones para documentos")
-            elif extencion.upper() in ['.JPG', '.JPEG', '.BMP']:    
-                # Acciones para imagenes
-                print("Acciones para imagenes")
-            else:
-                print(f"Formato no admitido por el sistema {extencion}")
+                # Verifico el formato para comprender las acciones a ejecutar
+                if extencion.upper() in ['.XLS', '.XLSX']:
+
+                    # Genero nevo nombre para evitar dupliciadad
+                    nArchivo = fu.nArchivo(nombre, extencion)
+
+                    # Divido el archivo en nombre y formato para verificar
+                    nombre, extencion = fu.lExtencion(nArchivo)
+
+                    print("Acciones para documentos")
+                elif extencion.upper() in ['.JPG', '.JPEG', '.BMP']:    
+                    # Acciones para imagenes
+                    print("Acciones para imagenes")
+                else:
+                    print(f"Formato no admitido por el sistema {extencion}")
     else:
         print('La ruta del sistema FTP no esta seteada')  
-        
         # Si es erroneo corto con bandera
         salir = True 
+
     # Espera 30 segundos antes de la siguiente iteración
     time.sleep(5)
     

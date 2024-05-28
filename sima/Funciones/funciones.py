@@ -159,6 +159,11 @@ def archivoRenom(archOri, archDes):
         os.rename(archOri, archDes)
     except OSError as e:
        return e
+
+def cambBarr(valor):
+    if valor != '':
+        valor.replace('\\', '/')
+    return valor
       
 def mailAviso():
     '''Genera los correos electronicos para avisos(periodos invalidos, topes superados)'''
