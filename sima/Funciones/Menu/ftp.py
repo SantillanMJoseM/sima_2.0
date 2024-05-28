@@ -25,6 +25,9 @@ param = con.buscoDirectorios(datos, menid)
 # Imprimo Inicio de Servicio
 print(os.getenv("rinicio") +' Iniciando servicio SIMA FTP ' + os.getenv("rfin"))
 
+# Seteo bandera en False
+salir = False
+
 # Inicio ciclo de escaneo
 while True:
     if keyboard.is_pressed('esc'):
@@ -41,8 +44,14 @@ while True:
     #parm7 = A definir
     
     # Carpetas de Destino y origen para ftp
-    rOrigen = param[0].get("parm2").replace('\\', '/')
-    rDestino = param[0].get("parm3").replace('\\', '/')
+    rOrigen = param[0].get("parm2") #.replace('\\', '/')
+    rDestino = param[0].get("parm3") #.replace('\\', '/')
+
+    # Genero verificacion de valores.
+    rOrigen = fu.mCompro(rOrigen)
+    rDestino = fu.mCompro(rDestino)
+
+    print(rOrigen, rDestino)
 
     # Verifico los parametros obtenidos
     if rOrigen != None and rDestino != None:
@@ -59,7 +68,7 @@ while True:
             nombre, extencion = fu.lExtencion(archivo)
 
             # Verifico el formato para comprender las acciones a ejecutar
-            if extencion.upper() == '.XLS' or extencion.upper() == '.XLSX':
+            if extencion.upper() in ['.XLS', '.XLSX']:
 
                 # Genero nevo nombre para evitar dupliciadad
                 nArchivo = fu.nArchivo(nombre, extencion)
@@ -68,12 +77,19 @@ while True:
                 nombre, extencion = fu.lExtencion(nArchivo)
 
                 print("Acciones para documentos")
-            elif extencion.upper() == '.JPG' or extencion.upper() == '.JPEG' or extencion.upper() == '.BMP':    
+            elif extencion.upper() in ['.JPG', '.JPEG', '.BMP']:    
                 # Acciones para imagenes
                 print("Acciones para imagenes")
             else:
                 print(f"Formato no admitido por el sistema {extencion}")
     else:
-        print('La ruta del sistema FTP no esta seteada')   
+        print('La ruta del sistema FTP no esta seteada')  
+        
+        # Si es erroneo corto con bandera
+        salir = True 
     # Espera 30 segundos antes de la siguiente iteración
     time.sleep(5)
+    
+# Verificamos si necesitamos salir del ciclo
+    if salir:
+        break
