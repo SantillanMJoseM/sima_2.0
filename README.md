@@ -46,19 +46,19 @@ Se generan instancias que contendran los menus principales para las funciones de
 
 ~~1-. Tomar rutas de Origen y Destino desde la base de datos para la empresa seleccionada~~
 
-2 -. Ver si existe algo en la carpeta del ftp (Origen) 
+~~2 -. Ver si existe algo en la carpeta del ftp (Origen)~~
 
-2.1 -. De ser comprobada la existencia del mismo o mismos.
+~~2.1 -. De ser comprobada la existencia del mismo o mismo~~s.
 
 2.2 -. Generar control general de extenciones permitidas de archivos (implementar tabla te relleno para estos formatos por empresa(whatsformat dentro de base SIMA).
 
 2.3 -. Definicion por empresa sobre archivos con extencion no validas (Borrados o movidos a carpera Errors FTP)
 
-3 -. Si la extencion esta dentro de los validos, empiezo a procesarlo
+~~3 -. Si la extencion esta dentro de los validos, empiezo a procesarlo~~
 
 3.1 -. Si la extencion es Imagen (Salto al punto 4)
 
-3.2 -. Si la extencion xls, xlsx (Salto al punto 5)
+~~3.2 -. Si la extencion xls, xlsx (Salto al punto 5)~~
 
 3.3 -. Si la extencion es Cualquier otro dentro de los permidos(Salto a punto 6)
 
@@ -66,11 +66,11 @@ Se generan instancias que contendran los menus principales para las funciones de
 Se agregara al final del nombre enviado "_fechareal" esta incluira la fecha del procesamiento y estara atada a la
 campaña que la utilice dentro del mismo dia (Fecha real) y la mencione en el excel en el lugar correspondiente a adjuntos.
 
-5 -. Teniendo en cuenta que se trata del archivo principal a ser procesado se detallara el proceso.
+~~5 -. Teniendo en cuenta que se trata del archivo principal a ser procesado se detallara el proceso.~~
 
-5.1 -. Verificacion de la taba de crifrado, si la misma esta cargada como periodo activo para cifrado. (Los valores seran cifrado y guardados en ccelular, y cmensaje), generando la imposibilidad para que puedan ser vistos facilmente desde basa. Solo seran DS en tiempo real durante la ejecucion. (Los archivos deben ser cifrados con PGP y proveer de la llave correspondiente a cargo de la emrpesa.
+5.1 -. Se tomara el excel modelo, verificando el largo de su nombre no supero los c(80) y agregarndo al final del mismo "_FechaReal" esta sera el momente en el cual se genera el procesamiento del documento.
 
-5.2 -. Se tomara el excel modelo, verificando el largo de su nombre no supero los c(80) y agregarndo al final del mismo "_FechaReal" esta sera el momente en el cual se genera el procesamiento del documento.
+5.2 -. Verificacion de la taba de crifrado, si la misma esta cargada como periodo activo para cifrado. (Los valores seran cifrado y guardados en ccelular, y cmensaje), generando la imposibilidad para que puedan ser vistos facilmente desde basa. Solo seran DS en tiempo real durante la ejecucion. (Los archivos deben ser cifrados con PGP y proveer de la llave correspondiente a cargo de la emrpesa.
 
 5.3 -. Se calculara el hash del mismo y guardara en la tabla de cifrado, para con el mismo generar un cifrado de 2 niveles, unico para cada archivo enviado.
 

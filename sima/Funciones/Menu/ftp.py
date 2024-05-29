@@ -45,7 +45,7 @@ while True:
 
     # Genero verificacion de valores.
     rOrigen = fu.cambBarr(fu.mCompro(rOrigen))
-    rDestino = fucambBarr(fu.mCompro(rDestino))
+    rDestino = fu.cambBarr(fu.mCompro(rDestino))
 
     # Verifico los parametros obtenidos, no nulos y no vacios
     if ((rOrigen != None and rDestino != None) and (rOrigen != '' and rDestino != '')):
